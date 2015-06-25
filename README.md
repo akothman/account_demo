@@ -2,6 +2,8 @@
 
 Allows you to register for an account, login, update account information, and log out. If you are not logged in and try to access a page required a login, you will be redirected back to the login page.
 
+The code is kind of thrown together, since I was learning this all as I was creating the site.
+
 Requires a table with these fields (to function correctly):
 
 <table>
