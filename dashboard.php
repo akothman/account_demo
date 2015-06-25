@@ -11,13 +11,17 @@
 				margin: 0;
 				background-color: #BCB0DC;
 			}
+			#main {
+				text-align: center;
+				padding-top: 50px;
+			}
 		</style>
 	</head>
 	<body>
 	<?php include('account_header.php');?>
 	
-	<div>
-		
+	<div id="main">
+		This is where the dashboard stuff would go :)
 	</div>
 	
 	</body>
