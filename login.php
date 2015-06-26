@@ -19,11 +19,15 @@
 		  $password = $conn->real_escape_string($password);
 			
 
-			$query = "select * from users where username='$username' AND unsafe_pass='$password'";
-			$result = $conn->query($query);
+			$query = "select username, email, first_name, last_name, date_created, suspended from users where username=? AND unsafe_pass=?";
+			$result = $conn->prepare($query);
+			$result->bind_param("ss", $username, $password);
+			$result->execute();
+			$result->store_result();
 			if($result->num_rows == 1){
 				//do login
-				$row = $result->fetch_assoc();
+				$result->bind_result($row['username'],$row['email'],$row['first_name'],$row['last_name'],$row['date_created'],$row['suspended']);
+				$result->fetch();
 				
 				if($row['suspended']!=1){
 					$_SESSION['username'] = $row['username']; // Initializing session
