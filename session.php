@@ -7,7 +7,7 @@
 	}
 	if(isset($_SESSION['get_updated_info'])){
 		$username = $_SESSION['username'];
-		$conn = new mysqli('localhost','USER','PASSWORD','DATABASE');
+		$conn = new mysqli('localhost','root','','demo');
 		if($conn->connect_error){
 				die("Connection failed: ".$conn->connect_error);
 		}

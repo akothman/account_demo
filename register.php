@@ -15,7 +15,7 @@
 		if(empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password'])){
 			$error = "There was an error creating your account"; // not used
 		} else {
-			$conn = new mysqli('localhost','USER','PASSWORD','DATABASE');
+			$conn = new mysqli('localhost','root','','demo');
 			if($conn->connect_error){
 				die("Connection failed: ".$conn->connect_error);
 			}

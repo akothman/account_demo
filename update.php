@@ -2,7 +2,7 @@
 	if(session_status() == PHP_SESSION_NONE){
 		session_start();
 	}
-	$conn = new mysqli('localhost','USER','PASSWORD','DATABASE');
+	$conn = new mysqli('localhost','root','','demo');
 	if($conn->connect_error){
 		die("Connection failed: ".$conn->connect_error);
 	}
@@ -12,8 +12,10 @@
 	
 	if(!empty($_POST['email'])){
 		$email = $_POST['email'];
-		$update = "UPDATE users SET email='$email' WHERE username='$username'";
-		if($conn->query($update) == TRUE){
+		$update = $conn->prepare("UPDATE users SET email=? WHERE username=?");
+        $update->bind_param('ss', $email, $username);  // weird mysqli syntax: SS means two string parameters. 
+                                                     // SIS would mean string, int, string
+		if($update->execute() == TRUE){
 			$result = "Your information has been updated";
 			$_SESSION['get_updated_info'] = TRUE;
 		} else {
@@ -22,8 +24,10 @@
 	}
 	if(isset($_POST['first'])){
 		$first = $_POST['first'];
-		$update = "UPDATE users SET first_name='$first' WHERE username='$username'";
-		if($conn->query($update) == TRUE){
+		$update = $conn->prepare("UPDATE users SET first_name=? WHERE username=?");
+        $update->bind_param('ss', $first, $username);  // weird mysqli syntax: SS means two string parameters. 
+                                                     // SIS would mean string, int, string
+		if($update->execute() == TRUE){
 			$result = "Your information has been updated";
 			$_SESSION['get_updated_info'] = TRUE;
 		} else {
@@ -32,8 +36,10 @@
 	}
 	if(isset($_POST['last'])){
 		$last = $_POST['last'];
-		$update = "UPDATE users SET last_name='$last' WHERE username='$username'";
-		if($conn->query($update) == TRUE){
+        $update = $conn->prepare("UPDATE users SET last_name=? WHERE username=?");
+        $update->bind_param('ss', $last, $username);  // weird mysqli syntax: SS means two string parameters. 
+                                                     // SIS would mean string, int, string
+		if($update->execute() == TRUE){
 			$result = "Your information has been updated";
 			$_SESSION['get_updated_info'] = TRUE;
 		} else {

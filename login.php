@@ -5,7 +5,7 @@
 		if(empty($_POST['username']) || empty($_POST['password'])){
 			$error = "Username or Password is invalid";
 		} else {
-			$conn = new mysqli('localhost','USER','PASSWORD','DATABASE');
+			$conn = new mysqli('localhost','root','','demo');
 			if($conn->connect_error){
 				die("Connection failed: ".$conn->connect_error);
 			}
