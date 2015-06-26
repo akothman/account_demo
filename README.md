@@ -9,7 +9,7 @@ Requires a table with these fields (to function correctly):
 <table>
 <tr><td>Field</td><td>Type</td><td>Null</td><td>Key</td><td>Default</td><td>Extra</td></tr>
 <tr><td>id</td><td>int(11)</td><td>NO</td><td>PRI</td><td>NULL</td><td>auto_increment</td></tr>
-<tr><td>username</td><td>char(50)</td><td>NO</td><td></td><td>NULL</td><td></td></tr>
+<tr><td>username</td><td>char(50)</td><td>NO</td><td></td><td>NULL</td><td>UNIQUE(username)</td></tr>
 <tr><td>email</td><td>char(50)</td><td>NO</td><td></td><td>NULL</td><td></td></tr>
 <tr><td>first_name</td><td>char(50)</td><td>YES</td><td></td><td>NULL</td><td></td></tr>
 <tr><td>last_name</td><td>char(50)</td><td>YES</td><td></td><td>NULL</td><td></td></tr>
