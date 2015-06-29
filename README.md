@@ -19,3 +19,7 @@ Requires a table with these fields (to function correctly):
 <tr><td>suspended</td><td>tinyint(1)</td><td>YES</td><td></td><td>0</td><td></td></tr>
 </table>
 Ip is currently unused, and suspended can only be set by directly accessing the database (although the login will check to see if the user is suspended).
+
+Initialize posts DB:
+
+CREATE TABLE posts (number INT UNIQUE PRIMARY KEY AUTO_INCREMENT, message MEDIUMTEXT NOT NULL, uid INT NOT NULL);
