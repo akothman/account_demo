@@ -15,7 +15,7 @@
 		if(empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password'])){
 			$error = "There was an error creating your account"; // not used
 		} else {
-			$conn = new mysqli('localhost','USER','PASSWORD','DATABASE');
+			$conn = new mysqli('localhost','root','','demo');
 			if($conn->connect_error){
 				die("Connection failed: ".$conn->connect_error);
 			}
@@ -32,18 +32,23 @@
 		  $password = $conn->real_escape_string($password);
 			
 
-			$query = "INSERT INTO users (username, email, unsafe_pass) VALUES ('$username','$email','$password')";
-			$result = $conn->query($query);
-			if($result === TRUE){
-				$query = "select * from users where username='$username' AND unsafe_pass='$password'";
-				$result = $conn->query($query);
+			$query = "INSERT INTO users (username, email, unsafe_pass) VALUES (?,?,?)";
+			$result = $conn->prepare($query);
+			$result->bind_param('sss', $username, $email, $password);
+			
+			if($result->execute() == TRUE){
+				$query = "select username, email, date_created from users where username=? AND unsafe_pass=?";
+				$result = $conn->prepare($query);
+				$result->bind_param('ss', $username, $password);
+				$result->execute();
+				$result->store_result();
 				if($result->num_rows == 1) {
 					//do login
-					$row = $result->fetch_assoc();
+					$result->bind_result($row['username'], $row['email'], $row['date_created']);
+					$result->fetch();
 					$_SESSION['username'] = $row['username']; // Initializing session
-					$_SESSION['first_name'] = $row['first_name'];
-					$_SESSION['last_name'] = $row['last_name'];
 					$_SESSION['email'] = $row['email'];
+					$_SESSION['date_created'] = $row['date_created'];
 					header('location: dashboard.php'); // redirecting to profile
 				}
 			} else {
